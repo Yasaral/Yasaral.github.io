@@ -62,8 +62,8 @@
         padding: 48px 26px 40px;
       }
     .photo {
-      width: 132px; height: 132px;
-      border-radius: 50%;
+      width: 300px; height: 300px;
+      border-radius: 25%;
       object-fit: cover;
       background: rgba(255,255,255,0.15);
       display: grid; place-items: center;
@@ -81,7 +81,7 @@
     .role { color: #fff; font-size: 15px; font-weight: 500; margin: 10px 0 22px; }
     
     nav.menu { display: flex; flex-direction: column; gap: 2px; margin-bottom: 22px; }
-    nav.menu a { color: rgba(255,255,255,0.9); font-size: 30px; padding: 4px 0; }
+    nav.menu a { color: rgba(255,255,255,0.9); font-size: 15px; padding: 4px 0; }
     nav.menu a:hover { color: #fff; text-decoration: underline; }
     
     .social { display: flex; flex-direction: column; gap: 4px; }
@@ -97,9 +97,9 @@
     
     section { margin-bottom: 46px; scroll-margin-top: 24px; }
     section > h2 {
-      font-size: 13px; font-weight: 600;
+      font-size: 30px; font-weight: 600;
       text-transform: uppercase; letter-spacing: 0.12em;
-      color: var(--accent);
+      color: var(--text);
       font-family: "IBM Plex Mono", monospace;
       margin: 0 0 18px;
       padding-bottom: 10px;
@@ -111,10 +111,36 @@
     .project { margin-bottom: 38px; }
     .project h3 { font-size: 19px; font-weight: 600; margin: 0 0 6px; }
     .project .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0 0;
+        clear: both;
+        width: 100%;
+      }
+     .project .tag {
+        display: inline-flex;
+        align-items: center;
+        width: auto;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 12px;
+        line-height: 1.4;
+        color: #fff;
+        background: var(--accent);
+        padding: 3px 11px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+    .proj-list { margin: 0 0 14px; padding-left: 18px; }
+    .proj-list li { margin-bottom: 6px; }
+    .project .tag {
       font-family: "IBM Plex Mono", monospace;
-      font-size: 12px; color: var(--muted);
-      margin: 0 0 12px;
-    }
+      font-size: 12px;
+      color: #fff;
+      background: var(--accent);
+      padding: 3px 11px;
+      border-radius: 999px;
+    }  
     .project p { margin: 0 0 12px; }
     .links { font-family: "IBM Plex Mono", monospace; font-size: 13px; }
     .links a { margin-right: 16px; }
@@ -127,6 +153,51 @@
       margin-bottom: 12px;
     }
     .exo-title { font-size: 15px; font-weight: 600; margin: 18px 0 6px; }
+
+    /* ---------- GALLERY EMBED (responsive 16:9) ---------- */
+        .gallery {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 10px;
+          margin: 0 0 14px;
+          clear: both;
+          width: 100%;
+        }
+      .gallery figure { margin: 0; }
+      .gallery img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        display: block;
+      }
+      .gallery figcaption {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 5px;
+      }
+
+            .lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.88);
+        z-index: 1000;
+        cursor: zoom-out;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .lightbox.open { display: flex; }
+      .lightbox img {
+        max-width: 92vw;
+        max-height: 92vh;
+        border-radius: 8px;
+      }
+      .gallery img { cursor: zoom-in; transition: opacity 0.15s; }
+      .gallery img:hover { opacity: 0.85; }
 
     /* ---------- VIDEO EMBED (responsive 16:9) ---------- */
     .video {
@@ -149,6 +220,8 @@
     .row .title { font-weight: 600; }
     .row .when { color: var(--muted); font-size: 13px; font-family: "IBM Plex Mono", monospace; white-space: nowrap; }
     .row .sub { color: var(--muted); font-size: 15px; }
+    .row-list { margin: 8px 0 0; padding-left: 18px; }
+    .row-list li { margin-bottom: 5px; font-size: 15px; color: var(--muted); }
 
     /* ---------- SKILLS ---------- */
     .skill { margin-bottom: 10px; }
@@ -173,8 +246,7 @@
     <aside class="sidebar">
       <!-- PHOTO: replace this div with  <img class="photo" src="photo.jpg" alt="Ali Yasar" />
            after you upload a photo file to the repo. -->
-      <div class="photo">add<br>photo.jpg</div>
-
+      <img class="photo" src="aliyasar3.png" alt="Ali Yasar" />
       <h1>Ali Yasar</h1>
       <p class="descriptor">Robotics &amp; mechatronics engineer — force control, compliant mechanisms, real-time systems.</p>
       <p class="role">PhD Candidate @ Monash University</p>
@@ -206,59 +278,166 @@
 
       <!-- SELECTED WORK -->
       <section id="work">
-        <h2>Selected Work</h2>
+        <h2>Selected Works</h2>
 
         <!-- ---- PROJECT 1 ---- -->
         <article class="project">
-          <h3>Soft Membrane–Fin-Ray Gripper</h3>
-          <p class="tags">Compliant design · Hyperelastic FEA · Grasping</p>
-          <!-- VIDEO: replace the .video-ph div below with an iframe:
-               <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Gripper demo" allowfullscreen></iframe> -->
-          <div class="video"><div class="video-ph">▶ demo video — add YouTube embed</div></div>
-          <p>A compliant gripper combining a pressurised membrane with Fin-Ray fingers for low-damage handling. Operating at 0–30 kPa, it increased contact area by 40% and achieved a 90% grasp success rate on spherical produce. Analytical deformation models were validated against hyperelastic FEA in ANSYS Workbench.</p>
-          <p class="links"><a href="#">Paper</a><a href="#">Video</a></p>
+          <h3>Impedance-Controlled Robotic Wrist</h3>
+          <div class="video">
+            <video autoplay muted loop playsinline preload="metadata"
+                  style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+              <source src="wrist.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p>A 2-DOF cable-driven wrist for safe, compliant interaction inside dense agricultural canopies.</p>
+          <ul class="proj-list">
+            <li>Designed the mechanism and electro-mechanical components of the 2-DOF cable-driven wrist, including kinematics and Jacobian analysis.</li>
+            <li>Implemented impedance-based force control for safe, compliant contact in cluttered foliage.</li>
+            <li>Conducted force-control and path-planning experiments for adaptive apple grasping in real canopy conditions.</li>
+          </ul>
+        <div class="gallery">
+          <figure>
+            <img src="wrist1.jpg" alt="MARS robot in orchard">
+            <figcaption>Cable-based differential mechanism</figcaption>
+          </figure>
+          <figure>
+            <img src="wrist2.jpg" alt="MARS robot in orchard">
+            <figcaption>Wrist rendering and annotations</figcaption>
+          </figure>
+          <figure>
+            <img src="wrist3.jpg" alt="MARS robot in orchard">
+            <figcaption>Control and integration diagram</figcaption>
+          </figure>
+        </div>
+          <div class="tags">
+            <span class="tag">Impedance control</span>
+            <span class="tag">Cable-driven</span>
+            <span class="tag">Physical interaction</span>
+            <span class="tag">ROS</span>
+            <span class="tag">MATLAB Real-Time</span>
+            <span class="tag">HIL testing</span>
+            <span class="tag">Python</span>
+          </div>
         </article>
 
         <!-- ---- PROJECT 2 ---- -->
         <article class="project">
-          <h3>2-DOF Cable-Driven Robotic Wrist</h3>
-          <p class="tags">Impedance control · EtherCAT · Real-time</p>
-          <div class="video"><div class="video-ph">▶ demo video — add YouTube embed</div></div>
-          <p>A cable-driven wrist for safe interaction in cluttered environments, built on a real-time stack of Maxon drives, EtherCAT, Beckhoff IPC, and ATI force/torque sensors. Impedance-based force control achieved under 1.5 N RMS tracking error at 250 Hz, staying stable under external loads up to 35 N.</p>
-          <p class="links"><a href="#">Video</a><a href="#">Code</a></p>
+          <h3>Soft Membrane–Fin-Ray Gripper</h3>
+          <!-- Gripper -->
+          <div class="video">
+            <video autoplay muted loop playsinline preload="metadata"
+                  style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+              <source src="gripper.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p>A soft gripper that conforms to delicate, rounded produce without bruising it.</p>
+          <ul class="proj-list">
+            <li>Built an analytical model predicting how thin membranes deform under pressure when grasping spherical objects.</li>
+            <li>Validated the hyperelastic behaviour with FEA on membrane geometries.</li>
+            <li>Designed the gripper around Fin-Ray-inspired fingers and ran grasping experiments to evaluate performance.</li>
+          </ul>
+          <div class="gallery">
+          <figure>
+            <img src="gripper1.jpg" alt="MARS robot in orchard">
+            <figcaption>FEA pressure analysis</figcaption>
+          </figure>
+          <figure>
+            <img src="gripper2.jpg" alt="MARS robot in orchard">
+            <figcaption>Pressure film experiment results</figcaption>
+          </figure>
+          <figure>
+            <img src="gripper3.jpg" alt="MARS robot in orchard">
+            <figcaption>Test gripper protoype</figcaption>
+          </figure>
+        </div>
+          <div class="tags">
+            <span class="tag">Soft robotics</span>
+            <span class="tag">Hyperelastic FEA</span>
+            <span class="tag">Conformal grasping</span>
+            <span class="tag">Analytical modelling</span>
+          </div>
         </article>
 
         <!-- ---- PROJECT 3 ---- -->
         <article class="project">
-          <h3>Project MARS — UR5 Robotic Harvesting Platform</h3>
-          <p class="tags">UR5 / cobots · Motion planning · Field validation</p>
-          <span class="award">★ 2023 “Year of the Project”, Victoria</span>
-          <div class="video"><div class="video-ph">▶ demo video — add YouTube embed</div></div>
-          <p>Integrated a UR5 manipulator, custom end-effector, and control stack into a harvesting platform, with collision-aware motion strategies validated in the field under real canopy interaction.</p>
-          <p class="links"><a href="#">Video</a></p>
+          <h3>Project MARS — Apple Harvesting Robot Platform</h3>
+          <span class="award">★ 2023 Engineering Project of the Year, Victoria</span>
+          <!-- MARS -->
+          <div class="video">
+            <video autoplay muted loop playsinline preload="metadata"
+                  style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+              <source src="mars.mp4" type="video/mp4">
+            </video>
+          </div>
+          <p>An autonomous apple-harvesting platform with an adaptive gripper, built and led end to end.</p>
+          <ul class="proj-list">
+            <li>Led development of the robotic platform and adaptive gripper for autonomous apple harvesting.</li>
+            <li>Awarded a Top-up Research Scholarship (2024) for outstanding research contribution.</li>
+          </ul>
+        <div class="gallery">
+          <figure>
+            <img src="mars.jpeg" alt="MARS robot in orchard">
+            <figcaption>Field trial in orchard</figcaption>
+          </figure>
+          <figure>
+            <img src="mars2.png" alt="MARS robot in orchard">
+            <figcaption>2023 Engineering Project of the Year, Victoria</figcaption>
+          </figure>
+        </div>
+        <div class="tags">
+          <span class="tag">UR5 / cobots</span>
+          <span class="tag">Autonomous harvesting</span>
+          <span class="tag">Mechanical design</span>
+          <span class="tag">ROS</span>
+        </div>
         </article>
-
-        <!-- ---- EXOSKELETONS (grouped) ---- -->
-        <!-- DEFENCE NOTE: for the hero video, embed only the official, already-public
-             upload, and keep wording to what that public video already shows. -->
+        
+        <!-- ---- PROJECT 4 ---- -->       
         <article class="project">
-          <h3>Exoskeletons</h3>
-          <p class="tags">Force control · HIL testing · Human-subject trials · Wearable robotics</p>
-          <p>Across my master's and industry work I developed three lower-limb exoskeletons — spanning active force-controlled designs and passive load-bearing mechanisms — several validated in trials with human subjects.</p>
+        <h3>Military Lower-Body Exoskeleton</h3>
+        <div class="video">
+            <video autoplay muted loop playsinline preload="metadata"
+                  style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+              <source src="military_exo.mp4" type="video/mp4">
+            </video>
+        </div>
+                <p>A lower-body exoskeleton designed to help military personnel carry load over demanding terrain, validated in the field with professional soldiers.</p>
+        <ul class="proj-list">
+          <li>Led the conceptual and mechanical design of the full lower-body exoskeleton.</li>
+          <li>Designed modular joint mechanisms balancing strength, endurance, and human biomechanics.</li>
+          <li>Conducted field tests with professional soldiers to validate performance under real operational conditions.</li>
+        </ul>
+        <p class="links"><a href="https://www.youtube.com/watch?v=V2-HkwKZrQ4" target="_blank" rel="noopener">Watch full video on YouTube [Turkish] ↗</a></p>
+        <div class="tags">
+          <span class="tag">Exoskeleton</span>
+          <span class="tag">Mechanical design</span>
+          <span class="tag">Field-tested</span>
+        </div>
+      </article>
 
-          <h4 class="exo-title">Passive Load-Bearing Exoskeleton — field-tested</h4>
-          <!-- When ready, replace the .video-ph div with:
-               <iframe loading="lazy" src="https://www.youtube.com/embed/VIDEO_ID" title="Passive exoskeleton field trial" allowfullscreen></iframe> -->
-          <div class="video"><div class="video-ph">▶ hero video — paste passive exo YouTube embed</div></div>
-          <p>A passive load-bearing exoskeleton developed for field use and evaluated in trials with end users.</p>
-
-          <h4 class="exo-title">Force-Controlled Medical Exoskeleton</h4>
-          <p>Force-controlled actuation for a lower-limb medical exoskeleton, with hardware-in-the-loop testing and human-subject experiments. <a href="#">▶ Watch</a></p>
-
-          <h4 class="exo-title">Overground Gait-Rehabilitation Exoskeleton — MSc</h4>
-          <p>My master's project: an overground gait-rehabilitation exoskeleton with observer-based force control, validated in human-subject experiments. <a href="#">▶ Watch</a></p>
-        </article>
-      </section>
+      <!-- ---- PROJECT 5 ---- -->  
+      <article class="project">
+      <h3>AssistOn-Walk — Medical Rehabilitation Exoskeleton</h3>
+      <!-- AssistOn-Walk -->
+      <div class="video">
+        <video autoplay muted loop playsinline preload="metadata"
+              style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <source src="assiston_exo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <p>A force-controlled lower-limb exoskeleton for gait rehabilitation, developed and validated with human subjects.</p>
+      <ul class="proj-list">
+        <li>Designed and integrated the actuator systems for force-controlled assistance.</li>
+        <li>Contributed to the control algorithms for gait assistance.</li>
+        <li>Conducted human-subject trials to evaluate gait support and therapeutic effect.</li>
+      </ul>
+      <div class="tags">
+        <span class="tag">Force control</span>
+        <span class="tag">Rehabilitation robotics</span>
+        <span class="tag">Human trials</span>
+        <span class="tag">MATLAB Real Time</span>
+      </div>
+    </article>
 
       <!-- EXPERIENCE -->
       <section id="experience">
@@ -266,6 +445,14 @@
         <div class="row">
           <div class="top"><span class="title">PhD Researcher &amp; Assistant Lecturer — Monash University</span><span class="when">2023 – Now</span></div>
           <div class="sub">Mechanical &amp; Aerospace Engineering · Melbourne, Australia</div>
+          <div class="row">
+          <div class="top"><span class="title">PhD Researcher &amp; Assistant Lecturer — Monash University</span><span class="when">2023 – Now</span></div>
+          <div class="sub">Mechanical &amp; Aerospace Engineering · Melbourne, Australia</div>
+          <ul class="row-list">
+            <li>Taught fundamental robotics: kinematics, dynamics, and control system design.</li>
+            <li>Senior TA in TRC4800 Robotics and MEC5156 Advanced Robotics in Manufacturing.</li>
+          </ul>
+        </div>
         </div>
         <div class="row">
           <div class="top"><span class="title">Mechatronics Engineer — Interact Medical Technologies</span><span class="when">2021 – 2023</span></div>
@@ -294,13 +481,30 @@
         <h2>Skills</h2>
         <p class="skill"><b>Robotics &amp; Control</b><br>Impedance &amp; force/torque control, real-time control, system identification, motion planning, ROS</p>
         <p class="skill"><b>Automation &amp; Hardware</b><br>EtherCAT, Beckhoff IPC, Maxon drives, ATI F/T sensors, SpeedGoat, UR5 / collaborative robots</p>
-        <p class="skill"><b>Software &amp; Modelling</b><br>MATLAB / Simulink (incl. Simulink Real-Time), Python</p>
+        <p class="skill"><b>Software &amp; Modelling</b><br>MATLAB / Simulink, Python</p>
         <p class="skill"><b>CAD / FEA</b><br>SolidWorks, CATIA V5, ANSYS Workbench / APDL</p>
       </section>
+      
+      <div class="lightbox" id="lightbox"><img src="" alt=""></div>
 
       <footer>© 2026 Ali Yasar.</footer>
 
     </main>
   </div>
+  <script>
+  const lb = document.getElementById('lightbox');
+  const lbImg = lb.querySelector('img');
+  document.querySelectorAll('.gallery img').forEach(img => {
+    img.addEventListener('click', () => {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('open');
+    });
+  });
+  lb.addEventListener('click', () => lb.classList.remove('open'));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') lb.classList.remove('open');
+  });
+</script>
 </body>
 </html>
